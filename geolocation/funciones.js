@@ -1,5 +1,10 @@
 var x = document.getElementById("demo");
 var btn=document.getElementById("btn");
+function initMap(lt) {
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: lt});
+  var marker = new google.maps.Marker({position: lt, map: map});
+}
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, showError);
@@ -8,15 +13,12 @@ function getLocation() {
   }
 }
 
-function showPosition(position) {
-  function showPosition(position) {
-  var latlon = position.coords.latitude + "," + position.coords.longitude;
 
-  var img_url = "https://maps.googleapis.com/maps/api/staticmap?center=
-  "+latlon+"&zoom=14&size=400x300&sensor=false&key=YOUR_:KEY";
-
-  document.getElementById("mapholder").innerHTML = "<img src='"+img_url+"'>";
-}
+ function showPosition(position) {
+  var l=position.coords.latitude;
+  var t=position.coords.longitude;
+  var lt={lat: l, lng: t};
+  return lt;
 }
 
 function showError(error) {
@@ -35,4 +37,9 @@ function showError(error) {
       break;
   }
 }
-btn.onclick=getLocation();
+function initMap() {
+  var lt =getlocation();
+  var map = new google.maps.Map(
+      document.getElementById('map'), {zoom: 4, center: lt});
+  var marker = new google.maps.Marker({position: lt, map: map});
+}
